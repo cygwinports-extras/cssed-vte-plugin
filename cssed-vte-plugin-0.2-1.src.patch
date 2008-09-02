@@ -1,0 +1,38 @@
+--- origsrc/cssed-vte-plugin-0.2/configure.in	2005-09-18 04:51:24.000000000 -0500
++++ src/cssed-vte-plugin-0.2/configure.in	2008-09-02 01:38:20.743808900 -0500
+@@ -11,6 +11,7 @@
+ AC_HEADER_STDC
+ 
+ AC_CANONICAL_HOST
++AC_PROG_LIBTOOL
+ 
+ dnl ************************
+ dnl Checks for OS type
+--- origsrc/cssed-vte-plugin-0.2/src/Makefile.am	2005-01-05 07:50:04.000000000 -0600
++++ src/cssed-vte-plugin-0.2/src/Makefile.am	2008-09-02 01:38:31.368740900 -0500
+@@ -1,21 +1,14 @@
+ ## Process this file with automake to produce Makefile.in
+ plugindir=$(prefix)/lib/cssed/plugins
+-plugin_PROGRAMS=vte_terminal.so
++plugin_LTLIBRARIES=vte_terminal.la
+ 
+ #the core pplugin files
+ SRCS=\
+ vte.c 
+ 
+-if ISDARWIN
+-vte_terminal_so_SOURCES = $(SRCS)
+-vte_terminal_so_LDFLAGS =  -bundle -flat_namespace -undefined suppress
+-vte_terminal_so_LDADD = @PACKAGE_LIBS@
+-vte_terminal_so_CFLAGS = -fno-common
+-else
+-vte_terminal_so_SOURCES= $(SRCS)
+-vte_terminal_so_LDFLAGS = -shared -fPICS
+-vte_terminal_so_LDADD = @PACKAGE_LIBS@
+-endif
++vte_terminal_la_SOURCES= $(SRCS)
++vte_terminal_la_LDFLAGS = -module -avoid-version -no-undefined
++vte_terminal_la_LIBADD = @PACKAGE_LIBS@
+ 
+ INCLUDES=\
+ 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/share/locale"\" \

@@ -1,0 +1,5 @@
+inherit gnome2
+
+DESCRIPTION="CSSED Terminal plugin"
+HOMEPAGE="http://cssed.sourceforge.net/"
+SRC_URI="mirror://sourceforge/cssed/${P}.tar.gz"
